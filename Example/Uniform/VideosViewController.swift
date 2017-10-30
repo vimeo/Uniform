@@ -1,6 +1,6 @@
 //
 //  VideosViewController.swift
-//  ConsistencyTest
+//  Uniform_Example
 //
 //  Created by King, Gavin on 9/27/17.
 //  Copyright © 2017 Vimeo. All rights reserved.
@@ -110,43 +110,3 @@ extension VideosViewController: ConsistentEnvironment
         }
     }
 }
-
-/*
- 
-// MARK: Object Membership
-
-DynamicMembershipManager.shared.register(self, for: .likes)
-
-extension VideosViewController: DynamicMembershipEnvironment
-{
-    func add(object: Video)
-    {
-        self.videos.insert(object, at: 0)
-        
-        let indexPath = IndexPath(item: 0, section: 0)
-
-        self.collectionView.insertItems(at: [indexPath])
- 
-        // TODO: Invalidate cache
-    }
-    
-    func remove(object: Video)
-    {
-        guard let index = self.videos.index(of: object) else
-        {
-            assertionFailure()
-            
-            return
-        }
-        
-        self.videos.remove(at: index)
-        
-        let indexPath = IndexPath(item: index, section: 0)
-        
-        self.collectionView.deleteItems(at: [indexPath])
- 
-        // TODO: Invalidate cache
-    }
-}
- 
-*/

@@ -1,6 +1,6 @@
 //
 //  Camera.swift
-//  ConsistencyTest
+//  Uniform_Example
 //
 //  Created by King, Gavin on 10/20/17.
 //  Copyright © 2017 Vimeo. All rights reserved.

@@ -47,8 +47,6 @@ extension ConsistencyManager
         
         private var boxedEnvironments: [BoxedEnvironment] = []
         
-        static let shared = EnvironmentManager()
-
         func add(_ environment: ConsistentEnvironment)
         {
             let boxedEnvironment = BoxedEnvironment(boxed: environment)
