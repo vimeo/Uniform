@@ -1,0 +1,22 @@
+{
+  "name": "Uniform",
+  "version": "0.1.0",
+  "summary": "A short description of Uniform.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/ghking/Uniform",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "ghking": "ghking13@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/ghking/Uniform.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "Uniform/Classes/**/*"
+}

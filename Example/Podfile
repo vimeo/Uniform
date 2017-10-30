@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Uniform_Example' do
+  pod 'Uniform', :path => '../'
+
+  target 'Uniform_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

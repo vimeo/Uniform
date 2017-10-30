@@ -1,0 +1,16 @@
+PODS:
+  - Uniform (0.1.0)
+
+DEPENDENCIES:
+  - Uniform (from `../`)
+
+EXTERNAL SOURCES:
+  Uniform:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Uniform: f8f0773b7d020a7adb055ea41604a95544fd8fec
+
+PODFILE CHECKSUM: 08240d1dd0eefa0750dec7339d5c1231be28578a
+
+COCOAPODS: 1.2.0
