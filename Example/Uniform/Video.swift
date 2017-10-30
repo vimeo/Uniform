@@ -95,20 +95,22 @@ extension Video: Equatable
 
 extension Video: ConsistentObject
 {
-    var consistentProperties: [ConsistentProperty]
+    var properties: [Property]
     {
         return [
+            ("id", self.id),
+            ("title", self.title),
             ("user", self.user)
         ]
     }
     
-    func setting(consistentProperty: ConsistentProperty) -> Video
+    func setting(property: Property) -> Video
     {
         var builder = VideoBuilder(object: self)
         
         do
         {
-            try builder.set(property: consistentProperty.label, with: consistentProperty.object)
+            try builder.set(property: property.label, with: property.value)
         }
         catch
         {

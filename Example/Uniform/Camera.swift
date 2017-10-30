@@ -76,18 +76,21 @@ extension Camera: Equatable
 
 extension Camera: ConsistentObject
 {
-    var consistentProperties: [ConsistentProperty]
+    var properties: [Property]
     {
-        return []
+        return [
+            ("id", self.id),
+            ("name", self.name)
+        ]
     }
     
-    func setting(consistentProperty: ConsistentProperty) -> Camera
+    func setting(property: Property) -> Camera
     {
         var builder = CameraBuilder(object: self)
         
         do
         {
-            try builder.set(property: consistentProperty.label, with: consistentProperty.object)
+            try builder.set(property: property.label, with: property.value)
         }
         catch
         {

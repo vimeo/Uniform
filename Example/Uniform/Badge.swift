@@ -76,18 +76,21 @@ extension Badge: Equatable
 
 extension Badge: ConsistentObject
 {
-    var consistentProperties: [ConsistentProperty]
+    var properties: [Property]
     {
-        return []
+        return [
+            ("id", self.id),
+            ("type", self.type)
+        ]
     }
     
-    func setting(consistentProperty: ConsistentProperty) -> Badge
+    func setting(property: Property) -> Badge
     {
         var builder = BadgeBuilder(object: self)
         
         do
         {
-            try builder.set(property: consistentProperty.label, with: consistentProperty.object)
+            try builder.set(property: property.label, with: property.value)
         }
         catch
         {

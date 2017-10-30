@@ -5,15 +5,15 @@
 
 import Foundation
 
-public typealias ConsistentProperty = (label: String, object: ConsistentObject)
+public typealias Property = (label: String, value: Any)
 
 public protocol ConsistentObject
 {
     var id: String { get }
     
-    var consistentProperties: [ConsistentProperty] { get }
+    var properties: [Property] { get }
 
-    func setting(consistentProperty: ConsistentProperty) -> Self
+    func setting(property: Property) -> Self
 }
 
 // MARK: Update API
@@ -94,7 +94,7 @@ extension ConsistentObject
 {
     var nodes: [ConsistentObject]
     {
-        return [self] + self.consistentProperties.flatMap({ $0.object.nodes })
+        return [self] + self.properties.flatMap({ $0.value as? ConsistentObject }).flatMap({ $0.nodes })
     }
     
     func inserting(_ object: ConsistentObject) -> Self
@@ -105,7 +105,17 @@ extension ConsistentObject
         }
         else
         {
-            return self.consistentProperties.reduce(self, { $0.setting(consistentProperty: ($1.label, $1.object.inserting(object))) })
+            return self.properties.reduce(self, {
+                
+                if let existingObject = $1.value as? ConsistentObject
+                {
+                    let property: Property = ($1.label, existingObject.inserting(object))
+                    
+                    return $0.setting(property: property)
+                }
+                
+                return $0
+            })
         }
     }
 }
