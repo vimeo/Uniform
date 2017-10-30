@@ -58,13 +58,11 @@ extension ConsistencyManager
         {
             // Remove any environments that have been deallocated
             
-            let environments = self.boxedEnvironments.flatMap({ $0.boxed })
-        
-            self.boxedEnvironments = environments.map({ BoxedEnvironment(boxed: $0) })
+            self.boxedEnvironments = self.boxedEnvironments.filter({ $0.boxed != nil })
             
             // Return the unboxed environments
             
-            return environments
+            return self.boxedEnvironments.flatMap({ $0.boxed })
         }
     }
 }
