@@ -100,13 +100,18 @@ extension VideosViewController: ConsistentEnvironment
     
     func update(with object: ConsistentObject)
     {
-        self.videos.updated(with: object) { (videos, updatedIndexes) in
+        self.videos.updated(with: object, in: self) { [weak self] (videos, updatedIndexes) in
             
-            self.videos = videos
+            guard let strongSelf = self else
+            {
+                return
+            }
+            
+            strongSelf.videos = videos
             
             let indexPaths = updatedIndexes.map({ IndexPath(item: $0, section: 0) })
             
-            self.collectionView.reloadItems(at: indexPaths)
+            strongSelf.collectionView.reloadItems(at: indexPaths)
         }
     }
 }

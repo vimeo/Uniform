@@ -49,9 +49,9 @@ extension Collection where Element: ConsistentObject, Element: Equatable
     
     // MARK: Asynchronous
 
-    public func updated(with object: ConsistentObject, on queue: DispatchQueue = DispatchQueue.global(qos: .userInitiated), completion: @escaping ([Element], [Int]) -> Void)
+    public func updated(with object: ConsistentObject, in environment: ConsistentEnvironment, completion: @escaping ([Element], [Int]) -> Void)
     {
-        queue.async {
+        ConsistencyManager.shared.environmentManager.queue(for: environment)?.async {
             
             let updated = self.updated(with: object)
             
@@ -74,10 +74,10 @@ extension ConsistentObject
     
     // MARK: Asynchronous
 
-    public func updated(with object: ConsistentObject, on queue: DispatchQueue = DispatchQueue.global(qos: .userInitiated), completion: @escaping (Self) -> Void)
+    public func updated(with object: ConsistentObject, in environment: ConsistentEnvironment, completion: @escaping (Self) -> Void)
     {
-        queue.async {
-            
+        ConsistencyManager.shared.environmentManager.queue(for: environment)?.async {
+
             let updatedObject = self.updated(with: object)
             
             DispatchQueue.main.async {

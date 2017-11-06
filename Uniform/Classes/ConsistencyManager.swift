@@ -3,7 +3,7 @@
 //  Uniform
 //
 
-public protocol ConsistentEnvironment: class
+public protocol ConsistentEnvironment: AnyObject
 {
     var objects: [ConsistentObject] { get }
 
@@ -16,7 +16,7 @@ public class ConsistencyManager
 {
     public static let shared = ConsistencyManager()
     
-    private let environmentManager = EnvironmentManager()
+    let environmentManager = EnvironmentManager()
 
     public func register(_ environment: ConsistentEnvironment)
     {
@@ -38,31 +38,50 @@ public class ConsistencyManager
 
 extension ConsistencyManager
 {
-    private class EnvironmentManager
+    class EnvironmentManager
     {
-        private struct BoxedEnvironment
+        private struct Constants
         {
-            weak var boxed: ConsistentEnvironment?
+            struct Queue
+            {
+                static let Name = "com.vimeo.uniform"
+            }
         }
         
-        private var boxedEnvironments: [BoxedEnvironment] = []
+        private struct EnvironmentContext
+        {
+            weak var environment: ConsistentEnvironment?
+            
+            let queue: DispatchQueue
+        }
+        
+        private var contexts: [EnvironmentContext] = []
+        
+        // MARK: Public API
         
         func add(_ environment: ConsistentEnvironment)
         {
-            let boxedEnvironment = BoxedEnvironment(boxed: environment)
+            let queue = DispatchQueue(label: Constants.Queue.Name, qos: .userInitiated)
             
-            self.boxedEnvironments.append(boxedEnvironment)
+            let context = EnvironmentContext(environment: environment, queue: queue)
+            
+            self.contexts.append(context)
         }
         
         var environments: [ConsistentEnvironment]
         {
             // Remove any environments that have been deallocated
             
-            self.boxedEnvironments = self.boxedEnvironments.filter({ $0.boxed != nil })
+            self.contexts = self.contexts.filter({ $0.environment != nil })
             
             // Return the unboxed environments
             
-            return self.boxedEnvironments.flatMap({ $0.boxed })
+            return self.contexts.flatMap({ $0.environment })
+        }
+        
+        func queue(for environment: ConsistentEnvironment) -> DispatchQueue?
+        {
+            return self.contexts.first(where: { $0.environment === environment })?.queue
         }
     }
 }
