@@ -51,7 +51,7 @@ extension Collection where Element: ConsistentObject, Element: Equatable
 
     public func updated(with object: ConsistentObject, in environment: ConsistentEnvironment, completion: @escaping ([Element], [Int]) -> Void)
     {
-        ConsistencyManager.shared.environmentManager.queue(for: environment)?.async {
+        ConsistencyManager.shared.queue(for: environment)?.async {
             
             let updated = self.updated(with: object)
             
@@ -76,7 +76,7 @@ extension ConsistentObject
 
     public func updated(with object: ConsistentObject, in environment: ConsistentEnvironment, completion: @escaping (Self) -> Void)
     {
-        ConsistencyManager.shared.environmentManager.queue(for: environment)?.async {
+        ConsistencyManager.shared.queue(for: environment)?.async {
 
             let updatedObject = self.updated(with: object)
             

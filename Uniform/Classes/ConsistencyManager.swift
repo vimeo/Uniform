@@ -16,7 +16,9 @@ public class ConsistencyManager
 {
     public static let shared = ConsistencyManager()
     
-    let environmentManager = EnvironmentManager()
+    private let environmentManager = EnvironmentManager()
+
+    // MARK: Public API
 
     public func register(_ environment: ConsistentEnvironment)
     {
@@ -32,13 +34,18 @@ public class ConsistencyManager
     {
         self.environmentManager.environments.forEach({ $0.update(with: object) })
     }
+    
+    func queue(for environment: ConsistentEnvironment) -> DispatchQueue?
+    {
+        return self.environmentManager.queue(for: environment)
+    }
 }
 
 // MARK: Environment Management
 
 extension ConsistencyManager
 {
-    class EnvironmentManager
+    private class EnvironmentManager
     {
         private struct Constants
         {
