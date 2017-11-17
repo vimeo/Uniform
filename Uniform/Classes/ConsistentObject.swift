@@ -16,30 +16,26 @@ public protocol ConsistentObject
     func setting(property: Property) -> Self
 }
 
-// MARK: Update API
+// MARK: Public API
 
-extension Collection where Element: ConsistentObject, Element: Equatable
+extension Array where Element: ConsistentObject, Element: Equatable
 {
     // MARK: Synchronous
 
     public func updated(with object: ConsistentObject) -> (objects: [Element], updatedIndexes: [Int])
     {
-        var objects: [Element] = []
+        var objects = self
         
         var updatedIndexes: [Int] = []
         
-        for (index, existingObject) in self.enumerated()
+        for (index, existingObject) in objects.enumerated()
         {
             let updatedObject = existingObject.updated(with: object)
             
-            // Append the object
-            
-            objects.append(updatedObject)
-            
-            // Append the index if the object changed
-            
-            if updatedObject != existingObject
+            if existingObject != updatedObject
             {
+                objects[index] = updatedObject
+
                 updatedIndexes.append(index)
             }
         }
