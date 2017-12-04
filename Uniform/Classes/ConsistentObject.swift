@@ -43,7 +43,7 @@ extension ConsistentObject
     }
 }
 
-extension Collection where Element: ConsistentObject
+extension Array where Element: ConsistentObject
 {
     // MARK: Synchronous
     
@@ -87,14 +87,27 @@ extension ConsistentObject
         {
             return self.properties.reduce(self, {
                 
-                if let existingObject = $1.value as? ConsistentObject
+                var updatedValue = $1.value
+                
+                // Handle consistent object properties
+                
+                if let existingValue = $1.value as? ConsistentObject
                 {
-                    let property: Property = ($1.label, existingObject.inserting(object))
-                    
-                    return $0.setting(property: property)
+                    updatedValue = existingValue.inserting(object)
                 }
                 
-                return $0
+                // Handle consistent object array properties
+                
+                else if let existingValue = $1.value as? [ConsistentObject]
+                {
+                    updatedValue = existingValue.map({ $0.inserting(object) })
+                }
+                
+                // Set the updated property
+                
+                let property: Property = ($1.label, updatedValue)
+                
+                return $0.setting(property: property)
             })
         }
     }
