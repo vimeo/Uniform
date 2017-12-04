@@ -35,21 +35,23 @@ extension ConsistencyManager
         self.environmentManager.environments.forEach({ $0.update(with: object) })
     }
     
+    public func update(with objects: [ConsistentObject])
+    {
+        objects.forEach({ self.update(with: $0) })
+    }
+    
     // MARK: Pull
     
-    public func updatedObject<T: ConsistentObject>(for object: T) -> T?
+    public func updatedObject<T: ConsistentObject>(for object: T) -> T
     {
-        return self.updatedObjects(for: [object]).first
+        let updatedObjects = self.environmentManager.environments.flatMap({ $0.objects })
+
+        return updatedObjects.reduce(object, { $0.updated(with: $1) })
     }
     
     public func updatedObjects<T: ConsistentObject>(for objects: [T]) -> [T]
     {
-        let nodes = self.environmentManager.environments.flatMap({ $0.objects }).flatMap({ $0.nodes })
-        
-        return objects.map({ (object) -> T in
-            
-            return nodes.reduce(object, { $0.updated(with: $1) })
-        })
+        return objects.map({ self.updatedObject(for: $0) })
     }
 }
 

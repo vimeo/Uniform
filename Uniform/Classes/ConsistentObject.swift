@@ -18,31 +18,6 @@ public protocol ConsistentObject
 
 // MARK: Public API
 
-extension Collection where Element: ConsistentObject
-{
-    // MARK: Synchronous
-
-    public func updated(with object: ConsistentObject) -> [Element]
-    {
-        return self.map({ $0.updated(with: object) })
-    }
-    
-    // MARK: Asynchronous
-
-    public func updated(with object: ConsistentObject, in environment: ConsistentEnvironment, completion: @escaping ([Element]) -> Void)
-    {
-        ConsistencyManager.shared.queue(for: environment)?.async {
-            
-            let updatedObjects = self.updated(with: object)
-            
-            DispatchQueue.main.async {
-                
-                completion(updatedObjects)
-            }
-        }
-    }
-}
-
 extension ConsistentObject
 {
     // MARK: Synchronous
@@ -68,16 +43,41 @@ extension ConsistentObject
     }
 }
 
-// MARK: Helpers
+extension Collection where Element: ConsistentObject
+{
+    // MARK: Synchronous
+    
+    public func updated(with object: ConsistentObject) -> [Element]
+    {
+        return self.map({ $0.updated(with: object) })
+    }
+    
+    // MARK: Asynchronous
+    
+    public func updated(with object: ConsistentObject, in environment: ConsistentEnvironment, completion: @escaping ([Element]) -> Void)
+    {
+        ConsistencyManager.shared.queue(for: environment)?.async {
+            
+            let updatedObjects = self.updated(with: object)
+            
+            DispatchQueue.main.async {
+                
+                completion(updatedObjects)
+            }
+        }
+    }
+}
+
+// MARK: Private Helpers
 
 extension ConsistentObject
 {
-    var nodes: [ConsistentObject]
+    private var nodes: [ConsistentObject]
     {
         return [self] + self.properties.flatMap({ $0.value as? ConsistentObject }).flatMap({ $0.nodes })
     }
     
-    func inserting(_ object: ConsistentObject) -> Self
+    private func inserting(_ object: ConsistentObject) -> Self
     {
         if let object = object as? Self, object.id == self.id
         {
