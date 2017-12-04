@@ -39,28 +39,17 @@ extension ConsistencyManager
     
     public func updatedObject<T: ConsistentObject>(for object: T) -> T?
     {
-        return self.environmentManager.environments.flatMap({ $0.objects }).flatMap({ $0.nodes }).flatMap({ $0 as? T }).first(where: { $0.id == object.id })
+        return self.updatedObjects(for: [object]).first
     }
     
-    public func updatedObjects(for objects: [ConsistentObject]) -> (objects: [ConsistentObject], updatedIndexes: [Int])
+    public func updatedObjects<T: ConsistentObject>(for objects: [T]) -> [T]
     {
-        var objects = objects
-        
-        var updatedIndexes: [Int] = []
-        
         let nodes = self.environmentManager.environments.flatMap({ $0.objects }).flatMap({ $0.nodes })
         
-        for (index, object) in objects.enumerated()
-        {
-            if let updatedObject = nodes.first(where: { type(of: $0) == type(of: object) && $0.id == object.id })
-            {
-                objects[index] = updatedObject
-                
-                updatedIndexes.append(index)
-            }
-        }
-        
-        return (objects, updatedIndexes)
+        return objects.map({ (object) -> T in
+            
+            return nodes.reduce(object, { $0.updated(with: $1) })
+        })
     }
 }
 

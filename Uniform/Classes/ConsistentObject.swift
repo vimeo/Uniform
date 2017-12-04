@@ -18,42 +18,26 @@ public protocol ConsistentObject
 
 // MARK: Public API
 
-extension Array where Element: ConsistentObject, Element: Equatable
+extension Collection where Element: ConsistentObject
 {
     // MARK: Synchronous
 
-    public func updated(with object: ConsistentObject) -> (objects: [Element], updatedIndexes: [Int])
+    public func updated(with object: ConsistentObject) -> [Element]
     {
-        var objects = self
-        
-        var updatedIndexes: [Int] = []
-        
-        for (index, existingObject) in objects.enumerated()
-        {
-            let updatedObject = existingObject.updated(with: object)
-            
-            if existingObject != updatedObject
-            {
-                objects[index] = updatedObject
-
-                updatedIndexes.append(index)
-            }
-        }
-        
-        return (objects, updatedIndexes)
+        return self.map({ $0.updated(with: object) })
     }
     
     // MARK: Asynchronous
 
-    public func updated(with object: ConsistentObject, in environment: ConsistentEnvironment, completion: @escaping ([Element], [Int]) -> Void)
+    public func updated(with object: ConsistentObject, in environment: ConsistentEnvironment, completion: @escaping ([Element]) -> Void)
     {
         ConsistencyManager.shared.queue(for: environment)?.async {
             
-            let updated = self.updated(with: object)
+            let updatedObjects = self.updated(with: object)
             
             DispatchQueue.main.async {
                 
-                completion(updated.objects, updated.updatedIndexes)
+                completion(updatedObjects)
             }
         }
     }
