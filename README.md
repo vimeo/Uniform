@@ -79,9 +79,9 @@ objects.updated(with: otherObject, in: self) { [weak self] (objects) in
 
 All of these functions will perform a deep merge. This means that the object and any of its nested objects will be merged with the other object and any of its nested objects, guaranteeing perfect state parity.
 
-#### Object Ownership
+#### Object Owner Registry
 
-In order for updates to propagate across the app, a registry of object owners must be maintained. This is handled by the `ConsistencyManager`. This object, most likely used as a singleton, keeps track of anyone who owns `ConsistentObject`s. `ConsistentObject` owners need to conform to `ConsistentEnvironment`. This protocol defines methods to both push and pull objects. The aggregate collection of `ConsistentEnvironment`s owned by the `ConsistencyManager` acts almost like a distributed database that's always up to date. This allows Uniform to use no extra memory.
+In order for updates to propagate across the app, a registry of object owners must be maintained. This is handled by the `ConsistencyManager`. This object, most likely used as a singleton, keeps track of anyone who owns `ConsistentObject`s. `ConsistentObject` owners need to conform to `ConsistentEnvironment`. This protocol defines an interface used by the `ConsistencyManager` to push and pull objects. The aggregate collection of `ConsistentEnvironment`s owned by the `ConsistencyManager` acts almost like a distributed database that's always up to date. This allows Uniform to use no extra memory.
 
 To register with the `ConsistencyManager`, a `ConsistentEnvironment` must call:
 
@@ -93,7 +93,7 @@ ConsistencyManager only holds a weak reference to each `ConsistentEnvironment`, 
 
 ### Object Consistency
 
-Object consistency throughout the app is the result of using both of these parts.
+Object consistency throughout the app can be achieved by combining the two mechanisms above. The `ConsistencyManager` provides the following API to take advantage of this system.
 
 #### Push API
 
