@@ -19,7 +19,7 @@ Consider the following cases:
 
 - The user likes a video from the player. If the user then closes the player and returns to the video list from which they opened the player, they expect the video in that list to be liked.
 
-- A user manually refreshes a list of videos, one of which whose title has changed since it was last requested. If that same video exists in a list on another tab, the user would expect that video's title to be updated in that list as well.
+- The user manually refreshes a list of videos, one of which whose title has changed since it was last requested. If that same video exists in a list on another tab, the user would expect that video's title to be updated in that list as well.
 
 Uniform provides a system to enable these experiences by maintaining object state in a safe and simple way.
 
