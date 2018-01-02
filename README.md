@@ -11,7 +11,7 @@ Uniform is a framework for keeping in-memory objects consistent and up to date.
 
 ## Motivation
 
-Object consistency is an important consideration, particularly in regard to user interfaces. Keeping in-memory models up to date ensures a consistent experience for the user as they navigate throughout the app.
+Object consistency is an important consideration, particularly in regard to user interfaces. Keeping in-memory objects and the views they populate up to date ensures a consistent experience for the user as they navigate throughout the app.
 
 Consider the following cases:
 
@@ -27,7 +27,7 @@ Uniform provides a system to enable these experiences by maintaining object stat
 
 ### Two Parts
 
-Uniform is really the combination of two functions: enabling objects to merge with each other, and keeping track of object owners.
+Uniform is really the combination of two mechanisms: enabling objects to merge with each other, and keeping track of object owners.
 
 #### Mergeable Objects
 
@@ -152,11 +152,11 @@ extension ProfileViewController: ConsistentEnvironment
 }
 ```
 
-Because merging accounts for nested objects, even if the updated object is not of the same type as the existing object, it may still update with parts of the updated object. For example, if the existing object is a video and the updated object is a channel, the video may update it's user property with the channels user property if the user has the same identifier.
+Because merging accounts for nested objects, even if the updated object is not of the same type as the existing object, it may still update with parts of the updated object. For example, if the existing object is a video and the updated object is a channel, the video may update it's user property with the channels user property if the users have the same identifier.
 
 #### Pull API
 
-The pull API can be used to retrieve the most up to date version of an object or collection of objects.
+The pull API can be used to retrieve the most up to date version of an object or collection of objects from the `ConsistentEnvironment`s.
 
 ```swift
 // For a single object
@@ -170,9 +170,9 @@ ConsistencyManager.shared.pullUpdatedObject(matching: object)
 ConsistencyManager.shared.pullUpdatedObjects(matching: objects)
 ```
 
-These functions direct the `ConsistencyManager` to search through the objects of each registered `ConsistentEnvironment` to find the first instance of an object matching the given object's identifier.
+These functions direct the `ConsistencyManager` to run through the objects of each registered `ConsistentEnvironment` and perform any necessary updates to the given object, ensuring that it's up to date.
 
-This can be used for situations in which we might have stale objects, such as when we're requesting objects from a cache and want to make sure they're up to date before returning them to the requester.
+This can be used for situations in which we might have stale objects, such as when we're requesting objects from a cache and want to make sure they're consistent before returning them to the requester.
 
 ## Example
 
