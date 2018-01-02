@@ -37,12 +37,12 @@ There are two ways to update with another object.
 
 Synchronously:
 
-```
+```swift
 // For a single object
 
 object = object.updated(with: otherObject)
 ```
-```
+```swift
 // For a collection of objects
 
 objects = objects.updated(with: otherObject)
@@ -50,7 +50,7 @@ objects = objects.updated(with: otherObject)
 
 Asynchronously:
 
-```
+```swift
 // For a single object
 
 object.updated(with: otherObject, in: self) { [weak self] (object) in
@@ -63,7 +63,7 @@ object.updated(with: otherObject, in: self) { [weak self] (object) in
     strongSelf.object = object
 }
 ```
-```
+```swift
 // For a collection of objects
 
 objects.updated(with: otherObject, in: self) { [weak self] (objects) in
@@ -85,7 +85,7 @@ In order for updates to propagate across the app, a registry of object owners mu
 
 To register with the `ConsistencyManager`, a `ConsistentEnvironment` must call:
 
-```
+```swift
 ConsistencyManager.shared.register(self)
 ```
 
@@ -99,13 +99,13 @@ Object consistency throughout the app is the result of using both of these parts
 
 When objects are updated, either as the result of a network response or a local update, they need to be pushed to the `ConsistencyManager`.
 
-```
+```swift
 // For a single object
 
 ConsistencyManager.shared.update(with: object)
 ```
 
-```
+```swift
 // For a collection of objects
 
 ConsistencyManager.shared.update(with: object)
@@ -115,7 +115,7 @@ This will push each new object to each registered `ConsistentEnvironment` using 
 
 Here's an example of a `ConsistentEnvironment`:
 
-```
+```swift
 class ProfileViewController: UIViewController
 {
     @IBOutlet weak var label: UILabel!
@@ -158,13 +158,13 @@ Because merging accounts for nested objects, even if the updated object is not o
 
 The pull API can be used to retrieve the most up to date version of an object or collection of objects.
 
-```
+```swift
 // For a single object
 
 ConsistencyManager.shared.updatedObject(for: object)
 ```
 
-```
+```swift
 // For a collection of objects
 
 ConsistencyManager.shared.updatedObjects(for: objects)
