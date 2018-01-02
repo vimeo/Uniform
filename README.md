@@ -102,13 +102,13 @@ When objects are updated, either as the result of a network response or a local 
 ```swift
 // For a single object
 
-ConsistencyManager.shared.update(with: object)
+ConsistencyManager.shared.pushUpdatedObject(object)
 ```
 
 ```swift
 // For a collection of objects
 
-ConsistencyManager.shared.update(with: object)
+ConsistencyManager.shared.pushUpdatedObjects(objects)
 ```
 
 This will push each new object to each registered `ConsistentEnvironment` using the functions required by the protocol. The `ConsistentEnvironment`s are then responsible for merging the new object into any of it's owned objects using the `ConsistentObject` merge functions.
@@ -161,13 +161,13 @@ The pull API can be used to retrieve the most up to date version of an object or
 ```swift
 // For a single object
 
-ConsistencyManager.shared.updatedObject(for: object)
+ConsistencyManager.shared.pullUpdatedObject(matching: object)
 ```
 
 ```swift
 // For a collection of objects
 
-ConsistencyManager.shared.updatedObjects(for: objects)
+ConsistencyManager.shared.pullUpdatedObjects(matching: objects)
 ```
 
 These functions direct the `ConsistencyManager` to search through the objects of each registered `ConsistentEnvironment` to find the first instance of an object matching the given object's identifier.

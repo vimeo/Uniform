@@ -17,6 +17,6 @@ extension User
         builder.age += 1
         let updatedUser = builder.build()
         
-        ConsistencyManager.shared.update(with: updatedUser)
+        ConsistencyManager.shared.pushUpdatedObject(updatedUser)
     }
 }
