@@ -53,27 +53,17 @@ Asynchronously:
 ```swift
 // For a single object
 
-object.updated(with: otherObject, in: self) { [weak self] (object) in
+object.updated(with: otherObject, in: self) { (updatedObject) in
 
-    guard let strongSelf = self else
-    {
-        return
-    }
-
-    strongSelf.object = object
+    object = updatedObject
 }
 ```
 ```swift
 // For a collection of objects
 
-objects.updated(with: otherObject, in: self) { [weak self] (objects) in
+objects.updated(with: otherObject, in: self) { (updatedObjects) in
 
-    guard let strongSelf = self else
-    {
-        return
-    }
-
-    strongSelf.objects = objects
+    objects = updatedObjects
 }
 ```
 
