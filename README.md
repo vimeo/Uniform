@@ -183,7 +183,7 @@ pod 'Uniform'
 
 ## Author
 
-Gavin King, gavin@vimeo.com
+Gavin King, ghking13@gmail.com
 
 ## License
 
