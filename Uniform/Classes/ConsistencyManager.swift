@@ -42,14 +42,14 @@ extension ConsistencyManager
     
     // MARK: Pull
     
-    public func pullUpdatedObject<T: ConsistentObject>(matching object: T) -> T
+    public func pullUpdatedObject<T: ConsistentObject>(for object: T) -> T
     {
         let updatedObjects = self.environmentManager.environments.flatMap({ $0.objects })
 
         return updatedObjects.reduce(object, { $0.updated(with: $1) })
     }
     
-    public func pullUpdatedObjects<T: ConsistentObject>(matching objects: [T]) -> [T]
+    public func pullUpdatedObjects<T: ConsistentObject>(for objects: [T]) -> [T]
     {
         return objects.map({ self.pullUpdatedObject(matching: $0) })
     }

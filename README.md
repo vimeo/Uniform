@@ -31,7 +31,7 @@ Uniform is really the combination of two mechanisms: enabling objects to merge w
 
 #### Mergeable Objects
 
-Objects that care about consistency need to conform to the `ConsistentObject` protocol. This protocol defines a few requirements used to get and set properties by name. Using this interface, the protocol is extended with merge functions that enable a single object to update with another object, or a collection of objects to update with another object.
+Objects that care about consistency need to conform to the `ConsistentObject` protocol. This protocol defines a few requirements used to get and set properties by name. These should be relatively trivial to implement, and can easily be generated. Using this interface, the protocol is extended with merge functions that enable a single object to update with another object, or a collection of objects to update with another object.
 
 There are two ways to update with another object.
 
@@ -81,7 +81,7 @@ All of these functions will perform a deep merge. This means that the object and
 
 #### Object Owner Registry
 
-In order for updates to propagate across the app, a registry of object owners must be maintained. This is handled by the `ConsistencyManager`. This object, most likely used as a singleton, keeps track of anyone who owns `ConsistentObject`s. `ConsistentObject` owners need to conform to `ConsistentEnvironment`. This protocol defines an interface used by the `ConsistencyManager` to push and pull objects. The aggregate collection of `ConsistentEnvironment`s owned by the `ConsistencyManager` acts almost like a distributed database that's always up to date. This allows Uniform to use no extra memory.
+In order for updates to propagate across the app, a registry of object owners must be maintained. This is handled by the `ConsistencyManager`. This object, most likely used as a singleton, keeps track of anyone who owns `ConsistentObject`s. `ConsistentObject` owners need to conform to `ConsistentEnvironment`. This protocol defines an interface used by the `ConsistencyManager` to push and pull objects. The aggregate collection of `ConsistentEnvironment`s owned by the `ConsistencyManager` functions like a distributed object store that's always up to date. This allows Uniform to use no extra memory.
 
 To register with the `ConsistencyManager`, a `ConsistentEnvironment` must call:
 
@@ -161,13 +161,13 @@ The pull API can be used to retrieve the most up to date version of an object or
 ```swift
 // For a single object
 
-ConsistencyManager.shared.pullUpdatedObject(matching: object)
+ConsistencyManager.shared.pullUpdatedObject(for: object)
 ```
 
 ```swift
 // For a collection of objects
 
-ConsistencyManager.shared.pullUpdatedObjects(matching: objects)
+ConsistencyManager.shared.pullUpdatedObjects(for: objects)
 ```
 
 These functions direct the `ConsistencyManager` to run through the objects of each registered `ConsistentEnvironment` and perform any necessary updates to the given object, ensuring that it's up to date.
