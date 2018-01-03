@@ -111,7 +111,7 @@ ConsistencyManager.shared.pushUpdatedObject(object)
 ConsistencyManager.shared.pushUpdatedObjects(objects)
 ```
 
-This will push each new object to each registered `ConsistentEnvironment` using the functions required by the protocol. The `ConsistentEnvironment`s are then responsible for merging the new object into any of it's owned objects using the `ConsistentObject` merge functions.
+This will push each new object to each registered `ConsistentEnvironment` using the functions required by the protocol. The `ConsistentEnvironment`s are then responsible for merging the new object into any of its owned objects using the `ConsistentObject` merge functions.
 
 Here's an example of a `ConsistentEnvironment`:
 
@@ -152,7 +152,7 @@ extension ProfileViewController: ConsistentEnvironment
 }
 ```
 
-Because merging accounts for nested objects, even if the updated object is not of the same type as the existing object, it may still update with parts of the updated object. For example, if the existing object is a video and the updated object is a channel, the video may update it's user property with the channels user property if the users have the same identifier.
+Because merging accounts for nested objects, even if the updated object is not of the same type as the existing object, it may still update with parts of the updated object. For example, if the existing object is a video and the updated object is a channel, the video may update its user property with the channel's user property if the users have the same identifier.
 
 #### Pull API
 
