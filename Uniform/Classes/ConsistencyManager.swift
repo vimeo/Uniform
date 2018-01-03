@@ -51,7 +51,7 @@ extension ConsistencyManager
     
     public func pullUpdatedObjects<T: ConsistentObject>(for objects: [T]) -> [T]
     {
-        return objects.map({ self.pullUpdatedObject(matching: $0) })
+        return objects.map({ self.pullUpdatedObject(for: $0) })
     }
 }
 
