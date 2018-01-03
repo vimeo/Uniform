@@ -162,7 +162,7 @@ ConsistencyManager.shared.pullUpdatedObjects(for: objects)
 
 These functions direct the `ConsistencyManager` to run through the objects of each registered `ConsistentEnvironment` and perform any necessary updates to the given object, ensuring that it's up to date.
 
-This can be used for situations in which we might have stale objects, such as when we're requesting objects from a cache and want to make sure they're consistent before returning them to the requester.
+These can be used for situations in which we have potentially stale objects. For example, if we're requesting objects from a cache, we may want to use these functions to update them before returning them to the requester. This way, any changes that have happened locally since the response was cached are accounted for in the returned objects.
 
 ## Example
 
