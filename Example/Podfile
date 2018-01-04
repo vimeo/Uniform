@@ -1,11 +1,13 @@
 use_frameworks!
 
-target 'Uniform_Example' do
+def shared_pods
   pod 'Uniform', :path => '../'
+end
 
-  target 'Uniform_Tests' do
-    inherit! :search_paths
+target 'Uniform_Example' do
+    shared_pods
+end
 
-    
-  end
+target 'Uniform_Tests' do
+    shared_pods
 end
