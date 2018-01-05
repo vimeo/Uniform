@@ -41,7 +41,7 @@ struct UserBuilder: Builder
         return User(id: self.id, name: self.name, age: self.age, badge: self.badge, camera: self.camera)
     }
     
-    mutating func set(property label: String, with value: Any) throws
+    mutating func set(property label: String, with value: Any?) throws
     {
         if label == "id"
         {

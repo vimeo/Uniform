@@ -32,7 +32,7 @@ struct CameraBuilder: Builder
         return Camera(id: self.id, name: self.name)
     }
     
-    mutating func set(property label: String, with value: Any) throws
+    mutating func set(property label: String, with value: Any?) throws
     {
         if label == "id"
         {

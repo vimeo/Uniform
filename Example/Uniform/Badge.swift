@@ -32,7 +32,7 @@ struct BadgeBuilder: Builder
         return Badge(id: self.id, type: self.type)
     }
     
-    mutating func set(property label: String, with value: Any) throws
+    mutating func set(property label: String, with value: Any?) throws
     {
         if label == "id"
         {

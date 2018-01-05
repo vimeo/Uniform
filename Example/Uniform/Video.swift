@@ -35,7 +35,7 @@ struct VideoBuilder: Builder
         return Video(id: self.id, title: self.title, user: self.user)
     }
     
-    mutating func set(property label: String, with value: Any) throws
+    mutating func set(property label: String, with value: Any?) throws
     {
         if label == "id"
         {

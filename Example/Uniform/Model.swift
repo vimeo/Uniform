@@ -29,5 +29,5 @@ protocol Builder
 
     func build() -> ModelType
 
-    mutating func set(property label: String, with value: Any) throws
+    mutating func set(property label: String, with value: Any?) throws
 }
