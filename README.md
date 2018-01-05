@@ -170,7 +170,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Minimum Requirements
 
-- Swift 3.2
+- Swift 4.0
 
 ## Installation
 
