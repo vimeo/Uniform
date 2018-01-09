@@ -12,8 +12,8 @@ Pod::Spec.new do |s|
   s.author           = { 'Gavin King' => 'gavin@vimeo.com' }
   s.source           = { :git => 'https://github.com/vimeo/Uniform.git', :tag => s.version.to_s }
 
-  # s.ios.deployment_target = '8.0'
-  # s.tvos.deployment_target = '9.0'
+  s.ios.deployment_target = '8.0'
+  s.tvos.deployment_target = '9.0'
 
   s.source_files = 'Uniform/Classes/**/*'
 
