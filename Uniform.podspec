@@ -1,10 +1,10 @@
 Pod::Spec.new do |s|
   s.name             = 'Uniform'
-  s.version          = '1.0.0'
-  s.summary          = 'A framework for keeping in-memory objects consistent and up to date.'
+  s.version          = '1.0.1'
+  s.summary          = 'A framework for maintaining in-memory object consistency.'
 
   s.description      = <<-DESC
-  Uniform is a framework for keeping in-memory objects consistent and up to date.
+  Uniform is a framework for maintaining in-memory object consistency.
                        DESC
 
   s.homepage         = 'https://github.com/vimeo/Uniform'

@@ -7,7 +7,7 @@
 
 ## Purpose
 
-Uniform is a framework for keeping in-memory objects consistent and up to date.
+Uniform is a framework for maintaining in-memory object consistency.
 
 ## Motivation
 
