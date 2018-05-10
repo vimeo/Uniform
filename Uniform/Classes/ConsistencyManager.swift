@@ -105,7 +105,7 @@ extension ConsistencyManager
             
             // Return the unboxed environments
             
-            return self.contexts.flatMap({ $0.environment })
+            return self.contexts.compactMap({ $0.environment })
         }
         
         func queue(for environment: ConsistentEnvironment) -> DispatchQueue?

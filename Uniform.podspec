@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'Uniform'
-  s.version          = '0.1.1'
+  s.version          = '1.0.0'
   s.summary          = 'A framework for keeping in-memory objects consistent and up to date.'
 
   s.description      = <<-DESC
