@@ -170,7 +170,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Minimum Requirements
 
-- Swift 4.0
+- Swift 4.1
 
 ## Installation
 
@@ -183,7 +183,7 @@ pod 'Uniform'
 
 ## Author
 
-Gavin King, ghking13@gmail.com
+Gavin King, gavin@vimeo.com
 
 ## License
 
