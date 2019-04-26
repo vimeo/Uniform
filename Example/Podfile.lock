@@ -1,5 +1,5 @@
 PODS:
-  - Uniform (1.0.1)
+  - Uniform (1.1.0)
 
 DEPENDENCIES:
   - Uniform (from `../`)
@@ -9,7 +9,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  Uniform: 08f871069f4a5a0b575f82695a217869d71cc39f
+  Uniform: 29f8f4bcaf0b11d14667887c7e09cd28d4edc4d3
 
 PODFILE CHECKSUM: 56f14512c8b41c2138f96df3093fbee8cc78da1f
 
