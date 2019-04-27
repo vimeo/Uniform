@@ -174,16 +174,23 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Installation
 
-Uniform is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+Uniform is available through [CocoaPods](http://cocoapods.org) and [Carthage](https://github.com/carthage/Carthage)
+
+### Cocoapods
+
+To install it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'Uniform'
+pod "Uniform"
 ```
 
-## Author
+### Carthage
 
-Gavin King, gavin@vimeo.com
+Add the following to your Cartfile:
+
+```
+github "vimeo/Uniform"
+```
 
 ## License
 
