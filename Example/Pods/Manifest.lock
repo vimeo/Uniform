@@ -1,16 +1,16 @@
 PODS:
-  - Uniform (0.1.0)
+  - Uniform (1.1.0)
 
 DEPENDENCIES:
   - Uniform (from `../`)
 
 EXTERNAL SOURCES:
   Uniform:
-    :path: ../
+    :path: "../"
 
 SPEC CHECKSUMS:
-  Uniform: f8f0773b7d020a7adb055ea41604a95544fd8fec
+  Uniform: 29f8f4bcaf0b11d14667887c7e09cd28d4edc4d3
 
-PODFILE CHECKSUM: e1688df01220e38bba1ce97b1480b5b7260a0ef1
+PODFILE CHECKSUM: 56f14512c8b41c2138f96df3093fbee8cc78da1f
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.5.2
