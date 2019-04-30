@@ -1,22 +1,30 @@
 {
   "name": "Uniform",
-  "version": "0.1.0",
-  "summary": "A short description of Uniform.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/ghking/Uniform",
+  "version": "1.1.0",
+  "summary": "A framework for maintaining in-memory object consistency.",
+  "description": "Uniform is a framework for maintaining in-memory object consistency.",
+  "homepage": "https://github.com/vimeo/Uniform",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "ghking": "ghking13@gmail.com"
+    "Gavin King": "gavin@vimeo.com",
+    "Nicole Lehrer": "nicole@vimeo.com",
+    "Mike Westendorf": "mikew@vimeo.com",
+    "Jason Hawkins": "jasonh@vimeo.com",
+    "Jennifer Lim": "jennifer@vimeo.com",
+    "Van Nguyen": "van@vimeo.com",
+    "Freddy Kellison-Linn": "freddyk@vimeo.com>"
   },
   "source": {
-    "git": "https://github.com/ghking/Uniform.git",
-    "tag": "0.1.0"
+    "git": "https://github.com/vimeo/Uniform.git",
+    "tag": "1.1.0"
   },
   "platforms": {
-    "ios": "8.0"
+    "ios": "8.0",
+    "tvos": "9.0"
   },
+  "swift_version": "4.2",
   "source_files": "Uniform/Classes/**/*"
 }
