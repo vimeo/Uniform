@@ -1,0 +1,98 @@
+# Customise this file, documentation can be found here:
+# https://github.com/fastlane/fastlane/tree/master/fastlane/docs
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+# can also be listed using the `fastlane actions` command
+
+# Change the syntax highlighting to Ruby
+# All lines starting with a # are ignored when running `fastlane`
+
+# If you want to automatically update fastlane if a new version is available:
+# update_fastlane
+
+# This is the minimum version number required.
+# Update this, if you use features of a newer version
+fastlane_version "2.114.0"
+
+default_platform :ios
+
+platform :ios do
+  before_all do
+    ensure_xcode_version(version: "10.2.0")
+  end
+
+  desc "buid the framework scheme"
+  lane :build do |options|
+    
+    # cant use gym: https://github.com/fastlane/fastlane/issues/1816
+    xcodebuild(
+      workspace: "Example/Uniform.xcworkspace",
+      scheme: "Uniform",
+      configuration: "Release",
+      build: true,
+      destination: "generic/platform=iOS",
+      build_settings: {
+        "CODE_SIGNING_REQUIRED" => "NO",
+        "CODE_SIGN_IDENTITY" => ""
+      },
+      buildlog_path: ".",
+      derived_data_path: "build/"
+    )
+
+  end
+
+  desc "run tests"
+  lane :test do |options|
+    scan(
+      workspace: "Example/Uniform.xcworkspace",
+      scheme: "Uniform-Example",
+      configuration: "Debug",
+      buildlog_path: ".",
+      derived_data_path: "build/",
+      formatter: 'xcpretty-json-formatter',
+      code_coverage: true
+    )
+
+    pretty_junit(file_pattern: "fastlane/test_output/report.junit")
+
+    if is_ci?
+      danger(use_bundle_exec: false)
+    end
+  end
+
+  desc "bumps the project and podspec version"
+  lane :version_bump do |options|    
+
+    bump_type = options[:bump_type]
+    version_number = options[:version_number]
+    if bump_type.nil? && version_number.nil?
+      UI.user_error!("version_bump requires you to provide a bump_type [patch|minor|major] or specific version_number. Please try again.") 
+    end
+
+    increment_version_number(
+      bump_type: bump_type,
+      version_number: version_number,
+      xcodeproj: "Example/Uniform.xcodeproj"
+    )
+
+    version_bump_podspec(
+      bump_type: bump_type,
+      version_number: version_number
+    )
+  end
+
+
+  after_all do |lane|
+    
+  end
+
+  error do |lane, exception|
+    
+  end
+end
+
+
+# More information about multiple platforms in fastlane: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Platforms.md
+# All available actions: https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Actions.md
+
+# fastlane reports which actions are used
+# No personal data is recorded. Learn more at https://github.com/fastlane/enhancer
