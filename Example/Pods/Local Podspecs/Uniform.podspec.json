@@ -25,6 +25,5 @@
     "ios": "8.0",
     "tvos": "9.0"
   },
-  "swift_version": "5.0",
   "source_files": "Uniform/Classes/**/*"
 }
