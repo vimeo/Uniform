@@ -1,0 +1,22 @@
+name: Uniform
+targets:
+  Uniform:
+    type: framework
+    platform: iOS
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.vimeo.uniform
+      INFOPLIST_FILE: Example/Uniform/Info.plist
+    sources:
+      - path: Uniform
+      - path: Example/Uniform/Model.swift
+    scheme:
+      testTargets:
+        - UniformTests
+  
+  UniformTests:
+    dependencies:
+      - target: Uniform
+    type: bundle.unit-test
+    platform: iOS
+    sources: 
+      - path: Example/Tests

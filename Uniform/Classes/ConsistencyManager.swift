@@ -3,6 +3,8 @@
 //  Uniform
 //
 
+import Foundation
+
 public protocol ConsistentEnvironment: AnyObject
 {
     var objects: [ConsistentObject] { get }
